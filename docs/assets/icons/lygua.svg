@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px" fill="none">
+  <defs>
+    <linearGradient id="avocadoSkin" x1="24" y1="2" x2="24" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="avocadoFlesh" x1="24" y1="6" x2="24" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a7f3d0" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <linearGradient id="avocadoSeed" x1="24" y1="23" x2="24" y2="39" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+  </defs>
+  <!-- Outer Avocado Skin -->
+  <path d="M24 3C18 3 13 10 12 18C11 25 7 28 7 34C7 41.18 14.61 46 24 46C33.39 46 41 41.18 41 34C41 28 37 25 36 18C35 10 30 3 24 3Z" fill="url(#avocadoSkin)" stroke="#064e3b" stroke-width="1.5" stroke-linejoin="round" />
+  <!-- Avocado Flesh -->
+  <path d="M24 6C19.5 6 15.5 12 14.5 19C13.5 25.5 10 28 10 33.5C10 39.5 16.5 43.5 24 43.5C31.5 43.5 38 39.5 38 33.5C38 28 34.5 25.5 33.5 19C32.5 12 28.5 6 24 6Z" fill="url(#avocadoFlesh)" />
+  <!-- Inner Ring Accent -->
+  <circle cx="24" cy="31" r="9.5" fill="#6ee7b7" opacity="0.6" />
+  <!-- Avocado Seed / Pit -->
+  <circle cx="24" cy="31" r="8" fill="url(#avocadoSeed)" stroke="#451a03" stroke-width="1" />
+  <!-- Seed Highlight -->
+  <ellipse cx="22" cy="28.5" rx="2.5" ry="1.5" transform="rotate(-30 22 28.5)" fill="#fef3c7" opacity="0.55" />
+</svg>
