@@ -1,0 +1,25 @@
+{
+  "name": "lygua",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@lygua/client": "workspace:*",
+    "@lygua/crypto": "workspace:*",
+    "@lygua/secure-random": "workspace:*",
+    "@lygua/utils": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  }
+}

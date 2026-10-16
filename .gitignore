@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.turbo/
+
+# Cache
+.cache/
+.oxlint-cache/
+*.tsbuildinfo
+
+# Environment & Secrets
+.env
+.env.local
+.clasp.json
+credentials.json
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.idea/
+scratch/

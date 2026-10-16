@@ -1,0 +1,30 @@
+{
+  "name": "@lygua/crypto",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./polyfill": {
+      "types": "./dist/polyfill.d.ts",
+      "import": "./dist/polyfill.js"
+    },
+    "./digest": {
+      "types": "./dist/digest.d.ts",
+      "import": "./dist/digest.js"
+    }
+  },
+  "dependencies": {
+    "@lygua/secure-random": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit"
+  }
+}

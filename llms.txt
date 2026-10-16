@@ -1,0 +1,136 @@
+# LYGUA 🥑
+> High-performance, zero-dependency serverless computing, cryptography, and utility toolchain for Google Apps Script (V8) and modern JavaScript/TypeScript.
+
+## Overview
+Lygua provides hardware-grade cryptography, immutability, deep cloning, deep merging, deep equality, type-safe RPC client abstractions, and offline testing fakes for Google Apps Script.
+
+All code runs natively in the Google Apps Script V8 runtime with 100% native speed, zero external dependencies, and zero reliance on slow native GAS Script-ID libraries.
+
+## Getting Started in Google Apps Script
+To use Lygua in an Apps Script project:
+1. Copy the pre-bundled standalone `lygua.iife.js` (from GitHub releases or dist).
+2. Create a new file in your Apps Script project named `Lygua.gs`.
+3. Paste the contents and save.
+4. The global identifier `Lygua` is now accessible in all `.gs` script files in your project.
+
+To install via npm in modern web projects:
+`npm install lygua`
+
+---
+
+## Quick Reference & Code Recipes
+
+### 1. Cryptographic Hashing (MD5, SHA-1, SHA-256, SHA-384, SHA-512)
+Computes digests for strings, Blobs, DriveApp files, Byte arrays, and Uint8Arrays:
+```javascript
+// Quick SHA-256 hex string
+const hash = Lygua.Crypto.sha256('Hello World');
+
+// MD5 with base64 output
+const md5 = Lygua.Crypto.digest('MD5', 'mySecret', 'base64');
+
+// SHA-512 from DriveApp File
+const file = DriveApp.getFileById('FILE_ID');
+const fileHash = Lygua.Crypto.sha512(file, 'hex');
+```
+
+### 2. Hardware-Grade WebCrypto CSPRNG & UUIDs
+Generates cryptographically secure random bytes and UUIDs using Google's backend `SecureRandom`:
+```javascript
+// UUID v4
+const uuid = Lygua.Crypto.randomUUID();
+
+// Fill Uint8Array with secure random bytes
+const bytes = new Uint8Array(32);
+Lygua.Crypto.getRandomValues(bytes);
+
+// Direct secure random float [0, 1) or integer range
+const float = Lygua.SecureRandom.random();
+const int = Lygua.SecureRandom.integer(1, 100);
+```
+
+### 3. Deep Cloning & Freezing
+Intelligently clones objects, arrays, Maps, Sets, Dates, RegExps, TypedArrays, and handles circular references:
+```javascript
+// Deep clone
+const cloned = Lygua.deepClone(original);
+
+// Deep clone and freeze copy (non-destructive)
+const frozen = Lygua.freeze(original);
+
+// Deep clone with snapshot of computed getters
+const snapshot = Lygua.clone(original, {
+  freeze: true,
+  accessorMode: Lygua.AccessorMode.SNAPSHOT,
+  hardenProto: true,
+});
+```
+
+### 4. Deep Equality
+Accurately compares deeply nested structures, cycles, Maps, Sets, Symbols, and TypedArray byteOffsets:
+```javascript
+const isEqual = Lygua.deepEqual(objA, objB);
+```
+
+### 5. Deep Merging
+Recursively merges nested objects with array strategies:
+```javascript
+// Replaces arrays (default)
+const merged = Lygua.deepMerge(target, source1, source2);
+
+// Merges/concatenates arrays immutably
+const combined = Lygua.deepMerge(target, source, {
+  clone: true,
+  handleArrays: Lygua.HandleArrays.MERGE,
+});
+
+// Deduplicates array elements with union strategy
+const union = Lygua.deepMerge(target, source, {
+  clone: true,
+  handleArrays: Lygua.HandleArrays.UNION,
+});
+```
+
+### 6. Safe Path Navigation & Array Synthesis
+Navigates, gets, and sets nested properties safely without throwing errors:
+```javascript
+// Read nested properties safely with default value
+const val = Lygua.getPath(data, 'users[0].address.zip', '00000');
+
+// Set nested properties (automatically synthesizes arrays for numeric indices)
+Lygua.setPath(data, 'users[0].name', 'Alice');
+
+// Check path existence
+const exists = Lygua.hasPath(data, 'company.employees[0]');
+
+// Delete nested property
+Lygua.deletePath(data, 'users[0]');
+
+// Immutable path updates
+const updated = Lygua.updateNested(data, 'settings.theme', 'dark', { clone: true });
+```
+
+### 7. Client RPC for Apps Script Web Apps
+Type-safe, Promise-based client for `google.script.run` with automatic local dev mocking:
+```javascript
+import { createScriptClient } from '@lygua/client';
+
+const client = createScriptClient({
+  devServerUrl: 'http://localhost:3000',
+  simulateLatency: 150,
+});
+
+// Calls google.script.run.getSpreadsheetData() in production, or mocks in dev
+const data = await client.getSpreadsheetData('Sheet1');
+```
+
+---
+
+## Packages
+- `lygua`: Monolithic entry point and standalone IIFE bundle (`dist/lygua.iife.js`).
+- `@lygua/crypto`: WebCrypto and `computeDigest` suite.
+- `@lygua/secure-random`: CSPRNG entropy generator from Google's backend.
+- `@lygua/client`: Type-safe RPC bridge for `google.script.run`.
+- `@lygua/testing`: Offline in-memory fakes for `PropertiesService`, `CacheService`, `Utilities`.
+- `@lygua/utils`: Immutability, cloning, equality, merging, and path manipulation.
+- `@lygua/gasm`: Monorepo CLI and package vendoring tool.
